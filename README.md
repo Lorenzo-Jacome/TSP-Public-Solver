@@ -11,3 +11,5 @@ Trabajando bajo la suposición de que nuestros usuarios no tienen conocimientos 
 ## Dependencias y su instalación
 * Matplotlib:
   * Instalación: `pip install matplotlib`
+* Geolib:
+  * Instalación: `pip install geopy`
