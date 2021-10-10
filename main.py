@@ -4,28 +4,38 @@ from geopy.geocoders import Nominatim
 class tspSolver:
     def __init__(self):
         self.geolocator = Nominatim(user_agent="LorenzoSuperApp")
-        self.allCoordinates = [[],[],[]]
+        self.coordinatesToPlot = [[],[],[]]
 
-    #Recives a direction as string, adds its coordinates to the "allCordinates" list
+    #Recieves a direction as a string
+    #Returns: [[X-COORDINATES], [Y-COORDINATES], [FULL ADDRESS]]
     def getCoordinates(self, direction):
+        coordinatesMat = []
+
         location = self.geolocator.geocode(direction)
-        self.allCoordinates[0].append(location.longitude)
-        self.allCoordinates[1].append(location.latitude)
-        self.allCoordinates[2].append(direction)
+
+        coordinatesMat.append(location.longitude)
+        coordinatesMat.append(location.latitude)
+        coordinatesMat.append(location.address)
+
+        return coordinatesMat
+
+    def normalOrderVisits(matToProcess):
+        resultMat = [[],[],[]]
+
+        for i in matToProcess:
+            resultMat[0].append(i[0])
+            resultMat[1].append(i[1])
+            resultMat[2].append(i[2])
+
+        return resultMat
 
     #Based on variable "allCoordinates", generates a plot where [[X-COORDINATES], [Y-COORDINATES]]
     #generates a plot
-    def generatePlot(self):
-        plt.scatter(self.allCoordinates[0], self.allCoordinates[1])
-        plt.plot(self.allCoordinates[0], self.allCoordinates[1])
+    def generatePlot(self, xCoordinates, yCoordinates):
+        plt.scatter(xCoordinates, yCoordinates)
+        plt.plot(xCoordinates, yCoordinates)
         plt.show()
 
 test = tspSolver()
 
-test.getCoordinates("Mexico City")
-test.getCoordinates("Puebla")
-test.getCoordinates("Monterrey")
-test.getCoordinates("Texas")
-test.getCoordinates("California")
-
-test.generatePlot()
+print(test.getCoordinates("Serrania 72, pedregal, mexico city"))
